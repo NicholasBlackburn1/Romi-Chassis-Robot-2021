@@ -27,4 +27,10 @@ Success! I can view the Pi status page.
 
 ## Update the Firmware.
 Follow the instructions here: https://docs.wpilib.org/en/stable/docs/romi-robot/imaging-romi.html#u4-control-board
+</br>
+<br></br>
+
+## Programming the Romi
+Following the guide here: https://docs.wpilib.org/en/stable/docs/romi-robot/programming-romi.html
+
 
