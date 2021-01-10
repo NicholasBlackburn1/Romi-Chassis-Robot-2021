@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class RomiDrivetrain extends SubsystemBase
 {
@@ -16,8 +18,8 @@ public class RomiDrivetrain extends SubsystemBase
 
     // The Romi has the left and right motors set to
     // PWM channels 0 and 1 respectively
-    private final Spark m_leftMotor = new Spark(0);
-    private final Spark m_rightMotor = new Spark(1);
+    private final Spark m_leftMotor = new Spark(Constants.SPARK_LEFT);
+    private final Spark m_rightMotor = new Spark(Constants.SPARK_RIGHT);
 
     // The Romi has onboard encoders that are hardcoded
     // to use DIO pins 4/5 and 6/7 for the left and right
@@ -41,6 +43,33 @@ public class RomiDrivetrain extends SubsystemBase
         m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
     }
 
+    public void deadbandedArcadeDrive() {
+		double throttle, turn;
+		if (RobotContainer.driverController.getRawAxis(Constants.RightStickX) > 0.1
+				|| RobotContainer.driverController.getRawAxis(Constants.RightStickY) < -0.1) {
+			if (RobotContainer.driverController.getRawAxis(Constants.RightStickX) < 0) {
+				throttle = -Math.sqrt(Math.abs(RobotContainer.driverController.getRawAxis(Constants.RightStickX)));
+			} else {
+				throttle = Math.sqrt(RobotContainer.driverController.getRawAxis(Constants.RightStickX));
+			}
+		} else {
+			throttle = 0;
+		}
+		/* check deadband */
+
+		if (RobotContainer.driverController.getRawAxis(Constants.LeftStickY) > 0.2
+				|| RobotContainer.driverController.getRawAxis(Constants.LeftStickY) < -0.2) {
+			if (RobotContainer.driverController.getRawAxis(Constants.LeftStickY) < 0) {
+				turn = -Math.sqrt(Math.abs(RobotContainer.driverController.getRawAxis(Constants.LeftStickY)));
+			} else {
+				turn = Math.sqrt(RobotContainer.driverController.getRawAxis(Constants.LeftStickY));
+			}
+		} else {
+			turn = 0;
+		}
+		arcadeDrive(throttle, -turn);
+	}
+
     public void resetEncoders()
     {
         m_leftEncoder.reset();
@@ -60,7 +89,7 @@ public class RomiDrivetrain extends SubsystemBase
     @Override
     public void periodic()
     {
-        // This method will be called once per scheduler run
+       
     }
 
     @Override

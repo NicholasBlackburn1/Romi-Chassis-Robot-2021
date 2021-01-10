@@ -14,5 +14,18 @@ package frc.robot;
  */
 public final class Constants
 {
+    // DriveTrain Constants
+    public static int SPARK_LEFT = 0;   
+    public static int SPARK_RIGHT =1;
+
+    // JoyStick constants
+    public static int Driver_Joystic =0;
+    // sticks 
+    public static int RightStickX =4;
+    public static int RightStickY = 5;
+    public static int LeftStickY = 1;
+    public static int LeftStickX = 0;
+    
+
 
 }
