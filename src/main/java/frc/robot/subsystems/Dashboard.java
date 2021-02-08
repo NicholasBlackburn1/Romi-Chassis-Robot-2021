@@ -1,4 +1,4 @@
-package frc.robot.dashboard;
+package frc.robot.subsystems;
 
 import java.util.Map;
 
@@ -28,6 +28,10 @@ public class Dashboard extends SubsystemBase {
     
     public Dashboard(RomiDrivetrain drivetrain){
         this.romidrivetrain = drivetrain;
+
+        // Quick and easy way of showing teleop dashboard on start up
+        // but you could add the dashboard at lets say robot init or auto init if you have an auto dashboard
+        showTeleopDashData();
     }
 
     // The Telop Dashboard that display all the robots data to the user in a gui Based way

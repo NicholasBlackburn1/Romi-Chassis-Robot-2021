@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.SystemsTestingAuto;
+import frc.robot.subsystems.Dashboard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,6 +31,9 @@ public class RobotContainer
     private final SystemsTestingAuto m_newAutoCommand = new SystemsTestingAuto(m_romiDrivetrain);
     public static Joystick driverController = new Joystick(Constants.Driver_Joystic);
 
+    // allows robot to use Dashboard with all the required subsystems
+    private final Dashboard m_dashboard = new Dashboard(m_romiDrivetrain);
+
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()
@@ -39,6 +43,9 @@ public class RobotContainer
 
         // Define  simple Run commands here for Controlling Robot
         m_romiDrivetrain.setDefaultCommand(new RunCommand(() -> m_romiDrivetrain.deadbandedArcadeDrive(), m_romiDrivetrain));
+
+        // sets Default Command for updating data from the robors sensors
+        m_dashboard.setDefaultCommand(new RunCommand(() -> m_dashboard.dashboardData(), m_dashboard));
     }
 
     /**
