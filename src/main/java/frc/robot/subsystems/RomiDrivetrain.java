@@ -26,6 +26,9 @@ public class RomiDrivetrain extends SubsystemBase
     private final Encoder m_leftEncoder = new Encoder(4, 5);
     private final Encoder m_rightEncoder = new Encoder(6, 7);
 
+    private double throttle;
+    private double turn;
+
     // Set up the differential drive controller
     private final DifferentialDrive m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
@@ -43,8 +46,9 @@ public class RomiDrivetrain extends SubsystemBase
         m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
     }
 
+    // Drive robot til  to the limit of the joystick
     public void deadbandedArcadeDrive() {
-		double throttle, turn;
+		
 		if (RobotContainer.driverController.getRawAxis(Constants.RightStickX) > 0.1
 				|| RobotContainer.driverController.getRawAxis(Constants.RightStickY) < -0.1) {
 			if (RobotContainer.driverController.getRawAxis(Constants.RightStickX) < 0) {
@@ -86,6 +90,15 @@ public class RomiDrivetrain extends SubsystemBase
         return m_rightEncoder.getDistance();
     }
 
+    // returns throttlePos
+    public double getThrottlePos(){
+        return throttle
+    }
+
+    // returns Turn pos
+    public double getTurnPos(){
+        return turn;
+    }
     @Override
     public void periodic()
     {
