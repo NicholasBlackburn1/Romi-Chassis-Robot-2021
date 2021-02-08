@@ -92,12 +92,21 @@ public class RomiDrivetrain extends SubsystemBase
 
     // returns throttlePos
     public double getThrottlePos(){
-        return throttle
+        return throttle;
     }
 
     // returns Turn pos
     public double getTurnPos(){
         return turn;
+    }
+
+    public Encoder getRightEncoder(){
+        return m_rightEncoder;
+    }
+
+
+    public Encoder getLeftEncoder(){
+        return m_leftEncoder;
     }
     @Override
     public void periodic()
